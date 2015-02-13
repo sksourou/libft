@@ -14,10 +14,9 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft/libft.h"
 # include <fcntl.h>
 
-# define BUFF_SIZE 8
+# define BUFF_SIZE 42
 
 
 typedef struct		s_list
