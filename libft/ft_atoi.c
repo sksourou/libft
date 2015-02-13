@@ -3,37 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboudouk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 16:25:02 by sboudouk          #+#    #+#             */
-/*   Updated: 2014/11/06 17:09:39 by sboudouk         ###   ########.fr       */
+/*   Created: 2015/01/26 23:02:31 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:02:34 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *nptr)
+int	ft_atoi(char const *s)
 {
-	int		sign;
-	int		rslt;
+	unsigned int	digit;
+	int				positive;
+	int				value;
 
-	rslt = 0;
-	sign = 0;
-	while (ft_isspace(*nptr) && *nptr != '\0')
-		nptr++;
-	if ((*nptr == '-' || *nptr == '+') && *nptr != '\0')
+	value = 0;
+	digit = 0;
+	while (*s == ' ' || *s == '\t' || *s == '\n'
+			|| *s == '\r' || *s == '\v' || *s == '\f')
+		s++;
+	positive = (*s == '-' ? -1 : 1);
+	if (*s == '-' || *s == '+')
+		s++;
+	if (*s == '0')
+		s++;
+	if (ft_strlen(s) > 19)
+		return (positive == 1 ? -1 : 0);
+	while (ft_isdigit(*s) && *s)
 	{
-		if (*nptr == '-')
-			sign = 1;
-		nptr++;
+		digit = (int)(*s - '0');
+		value = (value * 10) + digit;
+		s++;
 	}
-	while (ft_isdigit(*nptr))
-	{
-		rslt *= 10;
-		rslt += (*nptr - 48);
-		nptr++;
-	}
-	if (sign)
-		rslt = -(rslt);
-	return (rslt);
+	return (value * positive);
 }

@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/26 23:15:54 by sksourou          #+#    #+#             */
-/*   Updated: 2015/01/26 23:15:55 by sksourou         ###   ########.fr       */
+/*   Created: 2015/01/27 02:37:07 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/27 02:37:09 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char const *s)
+char	*ft_strrev(char *str)
 {
-	size_t	i;
+	int			i;
+	int			length;
+	char		tmp;
 
-	i = 0;
-	while (s[i])
+	if (str)
 	{
-		i++;
+		i = 0;
+		length = ft_strlen(str);
+		while (i < length / 2)
+		{
+			tmp = str[i];
+			str[i] = str[length - i - 1];
+			str[length - i - 1] = tmp;
+			i++;
+		}
 	}
-	return (i);
+	return (str);
 }

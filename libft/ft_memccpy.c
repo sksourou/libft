@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboudouk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 11:25:51 by sboudouk          #+#    #+#             */
-/*   Updated: 2014/11/11 16:54:41 by sboudouk         ###   ########.fr       */
+/*   Created: 2015/01/26 23:08:15 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:08:16 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *s1, const void *s2, int c, size_t n)
+void	*ft_memccpy(void *dst, void const *src, int c, size_t n)
 {
-	char		*p_s1;
-	const char	*p_s2 = s2;
+	size_t		i;
+	char		*cast_dst;
+	char const	*cast_src;
 
-	if (!s1 || !s2)
-		return (NULL);
-	p_s1 = s1;
-	while (n--)
+	cast_dst = (char *)dst;
+	cast_src = (char const *)src;
+	i = 0;
+	while (i < n && (i == 0 || cast_src[i - 1] != c))
 	{
-		*p_s1++ = *p_s2;
-		if (*p_s2 == c)
-			return (p_s1);
-		p_s2++;
+		cast_dst[i] = cast_src[i];
+		i++;
 	}
-	return (0);
+	if (i > 0 && cast_src[i - 1] == c)
+		return (cast_dst + i);
+	else
+		return (NULL);
 }

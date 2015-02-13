@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_islower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/26 23:15:54 by sksourou          #+#    #+#             */
-/*   Updated: 2015/01/26 23:15:55 by sksourou         ###   ########.fr       */
+/*   Created: 2015/01/26 23:05:08 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:05:09 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char const *s)
+int	ft_islower(int c)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
 }

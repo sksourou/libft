@@ -3,66 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboudouk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 23:02:22 by sboudouk          #+#    #+#             */
-/*   Updated: 2014/11/11 22:53:34 by sboudouk         ###   ########.fr       */
+/*   Created: 2015/01/26 23:19:32 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:19:34 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
 #include "libft.h"
 
-static size_t	ft_count_tok(char const *s, char c)
+static int		ft_cnt_parts(const char *s, char c)
 {
-	char const		*p_s = s;
-	size_t			counter;
+	int		cnt;
+	int		in_substring;
 
-	counter = 0;
-	while (*p_s)
+	in_substring = 0;
+	cnt = 0;
+	while (*s != '\0')
 	{
-		if (*p_s == c)
-			p_s++;
-		else
+		if (in_substring == 1 && *s == c)
+			in_substring = 0;
+		if (in_substring == 0 && *s != c)
 		{
-			counter++;
-			while (*p_s && *p_s != c)
-				p_s++;
+			in_substring = 1;
+			cnt++;
 		}
+		s++;
 	}
-	return (counter);
+	return (cnt);
 }
 
-char			**ft_one(char **tab, char const *s)
+static int		ft_wlen(const char *s, char c)
 {
-	tab[0] = ft_strdup((char *)s);
-	return (tab);
+	int		len;
+
+	len = 0;
+	while (*s != c && *s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
 }
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char		**big_array;
-	size_t		i;
-	size_t		nb_tok;
-	char const	*tok;
-	char const	*tok_next;
+	char	**t;
+	int		nb_word;
+	int		index;
 
-	if (!(tok = s))
+	index = 0;
+	nb_word = ft_cnt_parts((const char *)s, c);
+	t = (char **)malloc(sizeof(*t) * (ft_cnt_parts((const char *)s, c) + 1));
+	if (t == NULL)
 		return (NULL);
-	nb_tok = ft_count_tok(s, c);
-	if (!(big_array = ft_memalloc(sizeof(char *) * (nb_tok + 1))))
-		return (NULL);
-	if (nb_tok == 1)
-		return (ft_one(big_array, s));
-	i = 0;
-	while ((tok_next = ft_strchr(tok, c)))
+	while (nb_word--)
 	{
-		if ((tok_next - tok) > 0)
-			big_array[i++] = ft_strsub(s, tok - s, tok_next - tok);
-		tok = tok_next + 1;
+		while (*s == c && *s != '\0')
+			s++;
+		t[index] = ft_strsub((const char *)s, 0, ft_wlen((const char *)s, c));
+		if (t[index] == NULL)
+			return (NULL);
+		s = s + ft_wlen(s, c);
+		index++;
 	}
-	if ((tok_next = ft_strchr(tok, '\0')) - tok > 0)
-		big_array[i++] = ft_strsub(s, tok - s, tok_next - tok);
-	return (big_array);
+	t[index] = NULL;
+	return (t);
 }

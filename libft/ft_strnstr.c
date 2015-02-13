@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboudouk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 13:28:00 by sboudouk          #+#    #+#             */
-/*   Updated: 2014/11/06 19:49:45 by sboudouk         ###   ########.fr       */
+/*   Created: 2015/01/26 23:18:24 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:18:25 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *s1, const char *s2, size_t n)
+char	*ft_strnstr(char const *s1, char const *s2, size_t n)
 {
-	size_t	len;
+	unsigned int	i;
+	unsigned int	j;
 
-	len = ft_strlen(s2);
-	if (len == 0)
+	i = 0;
+	if (!*s2)
 		return ((char *)s1);
-	while (*s1 && len <= n--)
+	while (s1[i] && i < n)
 	{
-		if (ft_memcmp(s1++, s2, len) == 0)
-			return ((char *)s1 - 1);
+		j = 0;
+		while (s1[i + j] == s2[j] && s2[j] && s1[i + j] && (i + j) < n)
+			j++;
+		if (!s2[j])
+			return ((char *)&s1[i]);
+		i++;
 	}
 	return (NULL);
 }

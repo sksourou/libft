@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboudouk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sksourou <sksourou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/08 21:16:43 by sboudouk          #+#    #+#             */
-/*   Updated: 2014/11/08 21:19:19 by sboudouk         ###   ########.fr       */
+/*   Created: 2015/01/26 23:10:38 by sksourou          #+#    #+#             */
+/*   Updated: 2015/01/26 23:10:39 by sksourou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	unsigned char	chr;
+
+	chr = (unsigned char)c;
+	if (c)
+		write(fd, &chr, 1);
 }
